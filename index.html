@@ -3,9 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bikewatching</title>
+    <title>🚴🏼Boston: Bike Traffic</title>
+
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="map.css" />
+
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <script src="map.js" type="module"></script>
   </head>
+
   <body>
-    <h1>🚴🏼‍♀️ Boston: Bike Traffic</h1>
+    <!-- ─── toolbar ─── -->
+    <header class="toolbar">
+      <h1>🚴🏼‍♀️ Boston: Bike Traffic</h1>
+
+      <label class="time-filter" for="time-slider">
+        Filter by time:
+        <input
+          type="range"
+          id="time-slider"
+          min="-1"
+          max="1440"
+          value="-1"
+          step="1"
+        />
+        <time id="selected-time">--:--</time>
+        <em id="any-time">(any&nbsp;time)</em>
+      </label>
+    </header>
+
+    <!-- ─── map container ─── -->
+    <div id="map">
+      <!-- color-legend -->
+      <div class="legend">
+        <div class="legend-item" style="--departure-ratio: 1">
+          More&nbsp;departures
+        </div>
+        <div class="legend-item" style="--departure-ratio: 0.5">
+          Balanced
+        </div>
+        <div class="legend-item" style="--departure-ratio: 0">
+          More&nbsp;arrivals
+        </div>
+      </div>
+
+      <!-- SVG overlay for station markers -->
+      <svg></svg>
+    </div>
+
+    <!-- floating tooltip -->
+    <div id="tooltip" class="tooltip" style="display: none"></div>
   </body>
 </html>

@@ -1,0 +1,70 @@
+/***** map.css – complete *****/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+body > p {
+  margin: 0 0 1rem 0;
+}
+
+/* map container */
+#map {
+  flex: 1;
+  position: relative;          /* anchor for absolutely-positioned children */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── legend ─── */
+.legend {
+  position: absolute;          /* sit on top of the map */
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 20;                 /* higher than SVG (which is 10) */
+  display: flex;
+  gap: 1px;
+  font-size: 0.8rem;
+  user-select: none;
+  border: 1px solid #ddd;
+}
+
+.legend-item {
+  flex: 1 1 0;
+  text-align: center;
+  padding: 0.25rem 0.4rem;
+  color: #fff;
+  --color-departures: steelblue;
+  --color-arrivals:   darkorange;
+  background: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* ─── SVG overlay ─── */
+#map > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;                 /* below legend now */
+}
+
+#map > svg circle {
+  pointer-events: auto;
+  --color-departures: steelblue;
+  --color-arrivals:   darkorange;
+  fill: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+  transition: r 0.2s, fill 0.2s;
+}
